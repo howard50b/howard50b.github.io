@@ -185,3 +185,8 @@ mdb:
 popper:
   version: "2.4.0"
   integrity: "sha256-OH05DFHUWzr725HmuHo3pnuvUUn+TJuj8/Qz9xytFEw="
+
+
+# Added
+timezone: America/New_York   # prevents “it’s tomorrow somewhere” surprises
+future: true                 # publish posts with dates > now
