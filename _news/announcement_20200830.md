@@ -5,4 +5,4 @@ inline: true
 show_in_news: true
 ---
 
-Excited to start my PhD at Princeton working with [Danqi Chen](https://www.cs.princeton.edu/~danqic/) and [Karthik Narasimhan](https://karthikncode.github.io/).
+Excited to start my PhD at Princeton working with [Danqi Chen](https://www.cs.princeton.edu/~danqic/) and [Karthik Narasimhan](https://karthikncode.github.io/)!
