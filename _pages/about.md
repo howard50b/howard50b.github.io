@@ -13,7 +13,9 @@ profile:
 news: true
 social: true
 ---
-I am a final year PhD student in the [Princeton NLP Group](https://nlp.cs.princeton.edu/) and the [Princeton Language + Intelligence center](https://pli.princeton.edu/), co-advised by Professor [Danqi Chen](https://www.cs.princeton.edu/~danqic/) and Professor [Karthik Narasimhan](https://www.cs.princeton.edu/~karthikn/).
+<span style="color:red;">_I am currently on the job market. Feel free to reach out!_</span>
+
+I received my PhD in Computer Science from [Princeton](https://pli.princeton.edu/), where I was co-advised by Professor [Danqi Chen](https://www.cs.princeton.edu/~danqic/) and Professor [Karthik Narasimhan](https://www.cs.princeton.edu/~karthikn/).
 
 My research focuses on building agents that can operate reliably over long interactive horizons and continually evolve.
 I approch it through the lens of _memory_ in both its in-context and parametric forms --- designing challenging evaluation to stress test long-horizon capabilities ([WebShop](https://arxiv.org/abs/2207.01206)), developing algorithms that let models self-organize and manage its own in-context memory ([MemWalker](https://arxiv.org/abs/2310.05029)), examining reliability under context accumulation ([Tracking Belief Shift](https://arxiv.org/abs/2511.01805)), and understading how models can adapt gracefully with minimal forgetting ([Continual Memorization](https://arxiv.org/abs/2411.07175), [RL Mitigates Forgetting](https://arxiv.org/abs/2510.18874)).
