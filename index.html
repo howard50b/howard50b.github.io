@@ -1,0 +1,61 @@
+---
+title: Home
+---
+
+<html>
+<head>
+    <title>Howard Chen</title>
+    <meta charset='UTF-8'>
+    <meta content='width=device-width, initial-scale=1' name='viewport'/>
+
+    <meta name='description' content="Howard Chen's website.">
+    <meta name='author' content='Howard Chen'>
+
+    <link rel='shortcut icon' href='/favicon.png' />
+    <link href='/css/blog.css' rel='stylesheet'/>
+
+    {% include mathjax.html %}
+</head>
+<body class="home-page" style="min-height: 100vh; display: flex; flex-direction: column;">
+    {% include nav.html %}
+    <div id='blog' class='wrap' style="flex: 1;">
+
+        <h1>Howard Chen</h1>
+        <!-- Add image and text side by side -->
+        <div style="display: flex; gap: 2.5rem; align-items: flex-start;">
+            <div style="flex: 1; font-size: 15px;">
+                I received my PhD in Computer Science from <a href="https://pli.princeton.edu/">Princeton</a>, where I was co-advised by <a href="https://www.cs.princeton.edu/~danqic/">Danqi Chen</a> and <a href="https://www.cs.princeton.edu/~karthikn/">Karthik Narasimhan</a>.
+
+                <p>
+                   My research focuses on building ever-evolving agents that can operate reliably over long interactive horizons and continually learn.
+                   I approch it through the lens of <a style="font-style: italic;">memory</a> in both its in-context and parametric forms: designing challenging evaluation to stress test long-horizon capabilities (<a href="https://arxiv.org/abs/2207.01206">WebShop</a>), developing algorithms that let models self-organize and manage its long-term memory (<a href="https://arxiv.org/abs/2310.05029">MemWalker</a>), examining reliability under context accumulation (<a href="https://arxiv.org/abs/2511.01805">Tracking Belief Shift</a>), and understading how models can adapt gracefully with minimal forgetting (<a href="https://arxiv.org/abs/2411.07175">Continual Memorization</a>, <a href="https://arxiv.org/abs/2510.18874">RL Mitigates Forgetting</a>).
+                   I am also broadly interested in topics such as interpretability and safety from the memory perspective.
+                </p>
+
+                <p>
+                    Prior to Princeton, I was an ML researcher for three years at <a href="https://www.asapp.com/">ASAPP Research</a> and research assistant at Cornell NYC Tech. I recieved my M.Eng. from Cornell University and B.S. from National Taiwan University.
+                    <!-- Prior to Princeton, I was an ML researcher for three years at ASAPP Research and research assistant at Cornell NYC Tech. I recieved my M.Eng. from Cornell University and B.S. from National Taiwan University. -->
+                </p>
+
+                <p>
+                    Please see my google scholar page for the up-to-date publications.
+                </p>
+            </div>
+            <div style="width: 32%; flex-shrink: 0;">
+                <img src="/assets/howardchen.png" style="width: 100%;">
+                    <a style="font-family: courier; font-size: 14px">howardchen@cs.princeton.edu</a>
+                    <br>
+                    <div style="font-size: 14px;">
+                        <a href="https://x.com/__howardchen">Twitter</a> | 
+                        <a href="https://github.com/howard50b">GitHub</a> |
+                        <a href="https://scholar.google.com/citations?user=wsNa_W4AAAAJ&hl=en&authuser=3">Google Scholar</a>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <footer style="font-size: 10px; text-align: center; padding: 20px; font-style: italic; margin-top: auto;">
+        This website is adapted from <a href="http://gregorygundersen.com/">Gregory Gunderson</a>.
+    </footer>
+</body>
+</html>
