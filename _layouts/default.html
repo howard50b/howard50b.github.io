@@ -34,5 +34,84 @@
         {{ content }}
     </div>
 </div>
+<script>
+// Auto-filter bibliography: only show cited references, renumber automatically
+document.addEventListener('DOMContentLoaded', function() {
+  // Find bibliography source (ul or ol after ## References)
+  const bibSource = document.querySelector('.bib-source ul, .bib-source ol');
+  if (!bibSource) {
+    // Fallback to old ol.bibliography format
+    const bibList = document.querySelector('ol.bibliography');
+    if (bibList) filterOldFormat(bibList);
+    return;
+  }
+
+  // Find all citation links in the article
+  const article = document.querySelector('.article');
+  const citationLinks = article.querySelectorAll('a[href^="#"]');
+  
+  // Collect cited reference IDs in order of appearance
+  const citedIdsOrdered = [];
+  const citedIdsSet = new Set();
+  citationLinks.forEach(link => {
+    const id = link.getAttribute('href').substring(1);
+    if (id && !citedIdsSet.has(id)) {
+      citedIdsSet.add(id);
+      citedIdsOrdered.push(id);
+    }
+  });
+
+  // Build a map of id -> list item content
+  const refMap = new Map();
+  const items = bibSource.querySelectorAll('li');
+  items.forEach(item => {
+    const code = item.querySelector('code');
+    if (!code) return;
+    
+    const id = code.textContent.trim();
+    code.remove();
+    refMap.set(id, item.innerHTML.trim());
+  });
+
+  // Create new ordered list for bibliography, sorted by appearance in text
+  const newList = document.createElement('ol');
+  newList.className = 'bibliography';
+  
+  citedIdsOrdered.forEach(id => {
+    if (!refMap.has(id)) return;
+    
+    const li = document.createElement('li');
+    li.innerHTML = '<a name="' + id + '"></a>' + refMap.get(id);
+    newList.appendChild(li);
+  });
+
+  // Replace source with formatted bibliography
+  bibSource.parentNode.replaceChild(newList, bibSource);
+});
+
+function filterOldFormat(bibList) {
+  const article = document.querySelector('.article');
+  const citationLinks = article.querySelectorAll('a[href^="#"]');
+  const citedIds = new Set();
+  citationLinks.forEach(link => {
+    const id = link.getAttribute('href').substring(1);
+    if (id) citedIds.add(id);
+  });
+  
+  const items = bibList.querySelectorAll('li');
+  let visibleCount = 0;
+  items.forEach(item => {
+    const anchor = item.querySelector('a[name]');
+    const id = anchor ? anchor.getAttribute('name') : null;
+    if (id && citedIds.has(id)) {
+      item.style.display = '';
+      visibleCount++;
+      item.setAttribute('value', visibleCount);
+    } else {
+      item.style.display = 'none';
+    }
+  });
+}
+</script>
 </body>
 </html>
