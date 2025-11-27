@@ -1,0 +1,249 @@
+<html>
+<head>
+    <title>Metabolizing Machines</title>
+    <meta charset='UTF-8'>
+    <meta content='width=device-width, initial-scale=1' name='viewport'/>
+
+    <meta name='description' content='Gregory Gundersen is a PhD candidate at Princeton.'>
+    <meta name='keywords' content='ai, continual learning'>
+    <meta name='author' content='Gregory Gundersen'>
+
+    <link rel='shortcut icon' href='/favicon.png' />
+    <link href='/css/blog.css' rel='stylesheet'/>
+    <link href='/css/trac.css' rel='stylesheet'/>
+    <link href='/css/markdown.css' rel='stylesheet'/>
+
+    <script>
+// Fix HTML entities in math blocks before MathJax processes them
+document.addEventListener('DOMContentLoaded', function() {
+  // Find all text nodes that might contain math
+  const article = document.querySelector('.article') || document.body;
+  const walker = document.createTreeWalker(article, NodeFilter.SHOW_TEXT, null, false);
+  const textNodes = [];
+  while(walker.nextNode()) textNodes.push(walker.currentNode);
+  
+  textNodes.forEach(node => {
+    if (node.nodeValue && node.nodeValue.includes('&')) {
+      // Only fix entities inside math delimiters
+      node.nodeValue = node.nodeValue
+        .replace(/&amp;/g, '&')
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>');
+    }
+  });
+});
+</script>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    tags: 'ams'
+  },
+  options: {
+    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+};
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+</head>
+<body>
+<div class='content'>
+    <div class='nav'>
+    <ul class='wrap'>
+        <li><a href='/'>Home</a></li>
+        <li><a href='/blog/'>Blog</a></li>
+    </ul>
+</div>
+
+    <div class='front-matter'>
+        <div class='wrap'>
+            <h1>Metabolizing Machines</h1>
+            <div class='bylines'>
+                <div class='byline'>
+                    <h3>Published</h3>
+                    <p>26 November 2025</p>
+                </div>
+            </div>
+            <div class='clear'></div>
+        </div>
+    </div>
+    <div class='wrap article'>
+        <p>Imagine an intelligent system that can operate endlessly, not just for minuites, but hours, or days, or even months, years, decades. What does it take to build such a system?</p>
+
+<h2 id="scenario-1-curious-machines">Scenario 1: Curious Machines</h2>
+
+<p>Contrasts the LLM Daydreaming scenario where the learning is inward and retrospective.</p>
+
+<h2 id="scenario-2-ai-scientists">Scenario 2: AI Scientists</h2>
+
+<p>Limits to how much in-context learning can understand experimental feedback from (x, y) pairs (<a href="https://x.com/XingyouSong/status/1979606835830170079?s=20">Xingyou Song’s tweet</a> and <a href="https://arxiv.org/abs/2505.17968">LLM fails to understand blackboxes paper</a>).</p>
+
+<h2 id="isnt-it-just-rl">Isn’t It Just RL?</h2>
+
+<p>Answer: it is in its ultimate form but with a critical difference—a meta optimization loop that controls the metabolism. The challenge is to control the gain of information vs. forgetting ratio.</p>
+
+<h3 id="algorithm">Algorithm</h3>
+<ol>
+  <li>Generate experiences/trajectories</li>
+  <li>Digest the experience
+    <ul>
+      <li>Write out a document/note (knowledge)</li>
+      <li>Refine or fill in the reasoning steps (skill)</li>
+      <li>Infer preferences (ToM)</li>
+    </ul>
+  </li>
+  <li>Choose incorporation strategy
+    <ul>
+      <li>Parameter update: MLE, policy gradient, LoRA</li>
+      <li>Place in-context</li>
+      <li>Write into the data store for later retrieval</li>
+    </ul>
+  </li>
+  <li>Choose compose the objectives:
+    <ul>
+      <li>Capability: current task performance / user preferences</li>
+      <li>Risk: forgetting / safety</li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="the-engineering-perspective">The Engineering Perspective</h2>
+
+<p>Continual Learning in the Pre-LM Era</p>
+<ul>
+  <li><a href="https://doi.org/10.1016/S0079-7421(08)60536-8">Catastrophic Interference in Connectionist Networks: The Sequential Learning Problem</a></li>
+</ul>
+
+<p>Orthogonality / fast-slow learning / replay / memory augmentation / low rank update.</p>
+
+<h6 id="orthogonality"><strong>Orthogonality.</strong></h6>
+<ul>
+  <li>EWC</li>
+</ul>
+
+<h6 id="fast-slow-learning"><strong>Fast-slow learning.</strong></h6>
+<p>The “two learning speeds” idea traces back to the Complementary Learning Systems (CLS) framework by McClelland, McNaughton &amp; O’Reilly (1995). The hippocampus learns quickly—it can form new episodic associations after one or a few experiences—while the neocortex learns slowly, integrating information across many experiences to build stable, semantic knowledge.</p>
+
+<h6 id="replay"><strong>Replay.</strong></h6>
+<p>Idea: on-policy replay (re-digested data for replay).</p>
+
+<h6 id="memory-augmentation"><strong>Memory augmentation.</strong></h6>
+<ul>
+  <li>RAG</li>
+</ul>
+
+<h6 id="low-rank-update"><strong>Low rank update.</strong></h6>
+<ul>
+  <li>RL</li>
+  <li>LoRA</li>
+</ul>
+
+<h2 id="context-scaling">Context Scaling</h2>
+
+<p>Where are we now? A study from METR (<a href="https://metr.org/blog/2025-03-19-measuring-ai-ability-to-complete-long-tasks/">Measuring AI Ability to Complete Long Tasks</a>) suggests that the length of tasks AI can do is doubling every 7 months.</p>
+
+<p>Context length growth.</p>
+
+<p>Software rot.</p>
+
+<p>Context rot.</p>
+
+<p>Effective context (Lost in the Middle).</p>
+
+<h2 id="parametric-memory">Parametric Memory</h2>
+
+<ul>
+  <li>Bits of information per experience</li>
+  <li>Bits per param (cite physics of LM)</li>
+  <li>Low rank on-policy data</li>
+</ul>
+
+<h2 id="towards-machine-metabolism">Towards Machine Metabolism</h2>
+
+<p>Metabolism is about what to keep and what to lose. The difference between machines and living beings is that machines have full access to their own “body” and can hack it, roll it back, or replicate it as freely as they see fit.</p>
+
+<p>To live is to fight against the increase of entropy.
+The model is risen from a state of high entropy. Through training, the entropy minimization objective brings the model to a structured state.</p>
+
+<p>A metabolizing machine is a system that continues to draw negative entropy from its environment.
+This statement requires a few constraints. For such a system to make sense for humans, it must not degenerate.
+A metabolizing machine can continue to lower the informational entropy of the data it draws from the environment, yet simultaneously regressing through overfitting.</p>
+
+<p>Modern language models are not fully metabolizing machines either. They can draw negative entropy by accumulating</p>
+
+<p>A common confusion may arise as lower entropy on the task examples does not necessarily mean good task performance, which is often observed in RLHF’d models. This is because task examples are only the surface form of the latents that generate them. In this regard, the entropy on thse latents should be lower and not the examples after learning from this distribution.</p>
+
+<p>What guides the evolution?  Learning signal should come from the environment, and the model should decide itself what the signal is. It will necessarily produce systems that have very distinct characteristics. A model on a wearable device will evolve into a better model in that environment (aimoing for lower inference cost).</p>
+
+<ul>
+  <li>Wake-Sleep Algorithm</li>
+  <li><a href="https://arxiv.org/abs/2212.13345">Forward-Forward Algorithm and the mortal computer</a></li>
+</ul>
+
+<h2 id="proposal">Proposal</h2>
+
+<p>Tools of metabolism</p>
+<ul>
+  <li>Digest: summarize / reformat (e.g., knowledge into synthetic wiki page)</li>
+  <li>Algorithmic choice: LoRA / RL / SFT</li>
+  <li>Archive information for later replay</li>
+  <li>Archive information for later retrieval</li>
+</ul>
+
+<p>Guided by self-defined reward conditioned on 1) experience and 2) meta information about the environment.</p>
+
+<p>Setup <span class="kdmath">$N$</span> agentic environments. The model needs to setup it’s own learning target or context management strategy.</p>
+
+<h2 id="implications">Implications</h2>
+<p>Practical</p>
+<ul>
+  <li>Safety</li>
+</ul>
+
+<p>Philosophical</p>
+<ul>
+  <li>Agency / free will</li>
+  <li>Consciousness</li>
+  <li>Wants</li>
+</ul>
+
+<h2 id="other-proposals">Other Proposals</h2>
+
+<p>LLM Daydreaming envisons a process that continually samples from the model itself and collect relevant concepts for training. This proposal suggests that the issue is insufficient introspection.</p>
+
+<p>While the metabolizing machine thesis does not presume where the information comes from, it’s natural to imagine it is gathered from interation with the world.</p>
+
+<p>Retrospective thinking is a way to ensure model’s self-consistency—i.e., the model already has all the information within itself and the lacking bit is how they are connected, which does not emerge from typical gradient descent training.</p>
+
+<h2 id="references">References</h2>
+<ul>
+  <li>What Is Life? The Physical Aspect of the Living Cell by Erwin Schrödinger</li>
+  <li><a href="https://storage.googleapis.com/deepmind-media/Era-of-Experience%20/The%20Era%20of%20Experience%20Paper.pdf">Welcome to the Era of Experience</a></li>
+  <li><a href="https://arxiv.org/abs/2408.10234">The Unbearable Slowness of Being: Why do we live at 10 bits/s?</a></li>
+  <li><a href="https://gwern.net/ai-daydreaming">LLM Daydreaming</a></li>
+  <li><a href="https://jessylin.com/2025/10/20/continual-learning/">The Continual Learning Problem</a></li>
+  <li><a href="https://arxiv.org/abs/2506.10943">Self-Adapting Language Models</a></li>
+  <li><a href="https://research.trychroma.com/context-rot">Context Rot</a></li>
+  <li><a href="https://alexzhang13.github.io/blog/2025/rlm/">Recursive Language Models</a></li>
+  <li><a href="https://arxiv.org/abs/2404.05405">Physics of Language Models: Part 3.3, Knowledge Capacity Scaling Laws</a></li>
+  <li><a href="https://thinkingmachines.ai/blog/on-policy-distillation/#loss-function-reverse-kl">On-Policy Distillation</a></li>
+</ul>
+
+<h2 id="citation">Citation</h2>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@article{chen2025metabolizing,
+  title   = "The Metabolizing Machines",
+  author  = "Chen, Howard",
+  year    = "2025",
+  month   = "November",
+  url     = "https://howard50b.github.io/metabolizing-machines/"
+}
+</code></pre></div></div>
+
+    </div>
+</div>
+</body>
+</html>

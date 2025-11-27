@@ -1,0 +1,208 @@
+<html>
+<head>
+    <title>Common Confusions about RL for Language Models</title>
+    <meta charset='UTF-8'>
+    <meta content='width=device-width, initial-scale=1' name='viewport'/>
+
+    <meta name='description' content='Gregory Gundersen is a PhD candidate at Princeton.'>
+    <meta name='keywords' content='ai, continual learning'>
+    <meta name='author' content='Gregory Gundersen'>
+
+    <link rel='shortcut icon' href='/favicon.png' />
+    <link href='/css/blog.css' rel='stylesheet'/>
+    <link href='/css/trac.css' rel='stylesheet'/>
+    <link href='/css/markdown.css' rel='stylesheet'/>
+
+    <script>
+// Fix HTML entities in math blocks before MathJax processes them
+document.addEventListener('DOMContentLoaded', function() {
+  // Find all text nodes that might contain math
+  const article = document.querySelector('.article') || document.body;
+  const walker = document.createTreeWalker(article, NodeFilter.SHOW_TEXT, null, false);
+  const textNodes = [];
+  while(walker.nextNode()) textNodes.push(walker.currentNode);
+  
+  textNodes.forEach(node => {
+    if (node.nodeValue && node.nodeValue.includes('&')) {
+      // Only fix entities inside math delimiters
+      node.nodeValue = node.nodeValue
+        .replace(/&amp;/g, '&')
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>');
+    }
+  });
+});
+</script>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    tags: 'ams'
+  },
+  options: {
+    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+};
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+</head>
+<body>
+<div class='content'>
+    <div class='nav'>
+    <ul class='wrap'>
+        <li><a href='/'>Home</a></li>
+        <li><a href='/blog/'>Blog</a></li>
+    </ul>
+</div>
+
+    <div class='front-matter'>
+        <div class='wrap'>
+            <h1>Common Confusions about RL for Language Models</h1>
+            <div class='bylines'>
+                <div class='byline'>
+                    <h3>Published</h3>
+                    <p>04 February 2025</p>
+                </div>
+            </div>
+            <div class='clear'></div>
+        </div>
+    </div>
+    <div class='wrap article'>
+        <h3 id="kl-constrained-rl">KL Constrained RL</h3>
+
+<p>When applying reinforcement learning (RL) to train language models (LM), we often maximize the following objective <span class="kdmath">$J(\theta)$</span>:</p>
+
+<div class="kdmath">$$
+\begin{align}
+J(\theta) = \mathbb{E}_{y \sim \pi_\theta(\cdot \mid x)}[R(x, y)] - \beta \text{KL}[\pi_\theta(\cdot \mid x) \mid\mid \pi_0(\cdot \mid x)]
+\end{align}
+$$</div>
+
+<p>Here, <span class="kdmath">$x$</span> is the prompt, <span class="kdmath">$y$</span> is the generated response, <span class="kdmath">$R(x, y)$</span> is the reward function that assigns a scalar value to the entire response.</p>
+
+<p>Our goal is to calculate the gradient of the objective:</p>
+
+<div class="kdmath">$$
+\begin{align}
+\nabla_\theta J(\theta) &= \mathbb{E}_{y \sim \pi_\theta(\cdot \mid x)}[R(x, y)\nabla_\theta \log \pi_\theta(y \mid x)] - \beta \underbrace{\nabla_\theta \Big( \text{KL}[\pi_\theta(\cdot \mid x) \mid\mid \pi_0(\cdot \mid x)] \Big)}_{U} \\
+\end{align}
+$$</div>
+
+<p>We will expand <span class="kdmath">$U$</span> in the following sections.</p>
+
+<h3 id="canonical-formulation">Canonical Formulation</h3>
+
+<p>Expand <span class="kdmath">$U$</span>:</p>
+
+<div class="kdmath">$$
+\begin{align}
+U &= \nabla_\theta \sum_y \pi_\theta(y \mid x) \log \frac{\pi_\theta(y \mid x)}{\pi_0(y \mid x)} \\
+&= \sum_y \nabla_\theta ~ \pi_\theta(y \mid x)\Big( \log \frac{\pi_\theta(y \mid x)}{\pi_0(y \mid x)} \Big) + \pi_\theta(y \mid x) \nabla_\theta \log \pi_\theta(y \mid x) \\
+&= \sum_y \pi_\theta(y \mid x) \nabla_\theta \log \pi_\theta(y \mid x)\Big( \log \frac{\pi_\theta(y \mid x)}{\pi_0(y \mid x)} \Big) + \underbrace{\pi_\theta(y \mid x) \nabla_\theta \log \pi_\theta(y \mid x)}_{=0~~(\nabla \sum_y \pi(y \mid x) = 0)} \\
+%&= \sum_y \pi_\theta(y \mid x) \nabla_\theta \log \pi_\theta(y \mid x)\Big( \log \frac{\pi_\theta(y \mid x)}{\pi_0(y \mid x)} + 1 \Big) \\
+&= \mathbb{E}_{y \sim \pi_\theta(\cdot \mid x)} \bigg[ \log \frac{\pi_\theta(y \mid x)}{\pi_0(y \mid x)} \nabla_\theta \log \pi_\theta(y \mid x) \bigg]
+\end{align}
+$$</div>
+
+<p>Now, <span class="kdmath">$U$</span> can be intergrated into the original we can express in two ways equivalently:</p>
+
+<div class="kdmath">$$
+\begin{align}
+\nabla_\theta J(\theta) &= \mathbb{E}_{y \sim \pi_\theta(\cdot \mid x)}[R(x, y) \nabla_\theta \log \pi_\theta(y \mid x) ] - \beta U\\
+&= \mathbb{E}_{y \sim \pi_\theta(\cdot \mid x)}\bigg[ \Big( R(x, y) - \beta \log \frac{\pi_\theta(y \mid x)}{\pi_0(y \mid x)} \Big) \nabla_\theta \log \pi_\theta(y \mid x) \bigg] \\
+\mathcal{L}(\theta) &= - \frac{1}{N} \sum_{i=1}^N \bigg[ \Big( R(x_i, y_i) - \beta \log \frac{\pi_\theta(y_i \mid x_i)}{\pi_0(y_i \mid x_i)} \Big) \log \pi_\theta(y_i \mid x_i) \bigg]
+\end{align}
+$$</div>
+
+<p>This can be interpreted as adjusting the weighting of the log probability. Without the KL constraint, the weighting factor is simply <span class="kdmath">$R(x, y)$</span>. Now there is a term competing with the reward. If the policy needs to deviate from the reference policy by a lot to obtain the reward, this reward will be discounted (happens when <span class="kdmath">$\pi_0(y \mid x)$</span> is small).</p>
+
+<h3 id="alternative-formulations">Alternative Formulations</h3>
+
+<h4 id="exact">Exact</h4>
+
+<p>In practice, this might cause instability because <span class="kdmath">$\log \frac{\pi_\theta(y \mid x)}{\pi_0(y \mid x)}$</span> is not bounded and can be either positive or negative. Another view of the same expression can be written as the following.</p>
+
+<div class="kdmath">$$
+\begin{align}
+U &= \mathbb{E}_{y \sim \pi_\theta(\cdot \mid x)} \bigg[ \Big( \log \frac{\pi_\theta(y \mid x)}{\pi_0(y \mid x)} \Big) \nabla_\theta \log \pi_\theta(y \mid x) \bigg] \\
+&= \mathbb{E}_{y \sim \pi_\theta(\cdot \mid x)} \bigg[ \nabla_\theta ~ \frac{1}{2} \Big( \log \pi_\theta(y \mid x) - \log \pi_0(y \mid x) \Big)^2 \bigg] \\
+\end{align}
+$$</div>
+
+<p>This is easy to check: <span class="kdmath">$\frac{\partial}{\partial \theta} \frac{1}{2} (f(\theta) - c)^2 = (f(\theta) - c) \frac{\partial}{\partial \theta} f(\theta)$</span>, where we can swap in <span class="kdmath">$f(\theta) = \log \pi_\theta(y \mid x)$</span> and <span class="kdmath">$c = \log \pi_0(y \mid x)$</span>. With this, the loss can be written as:</p>
+
+<div class="kdmath">$$
+\begin{align}
+\mathcal{L}(\theta) &= - \frac{1}{N} \sum_{i=1}^N  \bigg[ R(x_i, y_i) \log \pi_\theta(y_i \mid x_i) - \frac{\beta}{2} \Big( \log \pi_\theta(y_i \mid x_i) - \log \pi_0(y_i \mid x_i) \Big)^2 \bigg]
+\end{align}
+$$</div>
+
+<h4 id="approximation">Approximation</h4>
+
+<p>In John Schulman’s blog, he proposed an estimator that is slightly more biased but has a much lower variance.</p>
+
+<div class="kdmath">$$
+\begin{align}
+\nabla_\theta \text{KL}[\pi_\theta(\cdot \mid x) \mid\mid \pi_0(\cdot \mid x)] &\approx \nabla_\theta \sum_y \frac{\pi_0(y \mid x)}{\pi_\theta(y \mid x)} - \log \frac{\pi_0(y \mid x)}{\pi_\theta(y \mid x)} - 1 \\ 
+&= \sum_y \Big( \pi_0(y \mid x) -  \pi_\theta(y \mid x) \big( \log \frac{\pi_0(y \mid x)}{\pi_\theta(y \mid x)} + 1 \big) \Big) \nabla_\theta \log \pi_\theta(y \mid x)
+\end{align}
+$$</div>
+
+<ul>
+  <li>R1 and DeepSeekMath chooses (r-1) - log r</li>
+  <li>Kimi uses 1/2 logratio^2</li>
+</ul>
+
+<h3 id="implementations">Implementations</h3>
+
+<p>There are a lot of different implementations of how the KL is incorporated into the loss.</p>
+<ol>
+  <li><a href="http://joschu.net/blog/kl-approx.html">Approximating KL Divergence by John Schulman</a></li>
+  <li><a href="https://github.com/huggingface/trl/issues/2608">TRL</a></li>
+  <li><a href="">OpenRLHF</a></li>
+  <li><a href="">OpenInstruct</a></li>
+  <li>verl
+    <ul>
+      <li>https://github.com/volcengine/verl/issues/211</li>
+      <li>https://github.com/volcengine/verl/blob/main/verl/trainer/ppo/ray_trainer.py#L908</li>
+    </ul>
+  </li>
+</ol>
+
+<blockquote>
+  <p>Also note that, instead of adding KL penalty in the reward, GRPO regularizes by directly adding the KL divergence between the trained policy and the reference policy to the loss, avoiding complicating the calculation of <span class="kdmath">$A$</span>.</p>
+  <h3 id="token-level-vs-response-level-kl">Token Level vs Response Level KL</h3>
+  <p>…</p>
+</blockquote>
+
+<h3 id="clipping-in-ppo">Clipping in PPO</h3>
+
+<p><a href="https://costa.sh/blog-understanding-why-there-isn't-a-log-probability-in-trpo-and-ppo's-objective">Understanding why there isn’t a log probability in TRPO and PPO’s objective</a></p>
+
+<div class="kdmath">$$
+\begin{align}
+\nabla_\theta J(\theta) &= \mathbb{E}_{y \sim \pi_\theta(\cdot \mid x)} \Big[ A(x, y) \nabla_\theta \log \pi_\theta(y \mid x) \Big] \\
+&= \mathbb{E}_{y \sim \pi'(\cdot \mid x)} \bigg[ \frac{ \pi_\theta(y \mid x) }{ \pi'(y \mid x) } A(x, y) \nabla_\theta \log \pi_\theta(y \mid x) \bigg] \\
+&= \mathbb{E}_{y \sim \pi'(\cdot \mid x)} \bigg[\frac{\nabla_\theta \pi_\theta(y \mid x)}{\pi'(y \mid x)} A(x, y) \bigg] \\
+\mathcal{L}(\theta) &= - \frac{1}{N} \sum_{i=1}^N \bigg[ \frac{\pi_\theta(y_i \mid x_i)}{\pi'(y_i \mid x_i)} A(x_i, y_i) \bigg]
+\end{align}
+$$</div>
+
+<h3 id="conclusion">Conclusion</h3>
+<p>…</p>
+
+<div class="language-latex highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@article<span class="p">{</span>chen2025RLforLM,
+   title=<span class="p">{</span>Details about RL for Language Models<span class="p">}</span>,
+   author=<span class="p">{</span>Howard Chen<span class="p">}</span>,
+   year=<span class="p">{</span>2025<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+    </div>
+</div>
+</body>
+</html>

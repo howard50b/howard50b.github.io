@@ -1,0 +1,106 @@
+<html>
+<head>
+    <title>AI in 2025</title>
+    <meta charset='UTF-8'>
+    <meta content='width=device-width, initial-scale=1' name='viewport'/>
+
+    <meta name='description' content='Gregory Gundersen is a PhD candidate at Princeton.'>
+    <meta name='keywords' content='ai'>
+    <meta name='author' content='Gregory Gundersen'>
+
+    <link rel='shortcut icon' href='/favicon.png' />
+    <link href='/css/blog.css' rel='stylesheet'/>
+    <link href='/css/trac.css' rel='stylesheet'/>
+    <link href='/css/markdown.css' rel='stylesheet'/>
+
+    <script>
+// Fix HTML entities in math blocks before MathJax processes them
+document.addEventListener('DOMContentLoaded', function() {
+  // Find all text nodes that might contain math
+  const article = document.querySelector('.article') || document.body;
+  const walker = document.createTreeWalker(article, NodeFilter.SHOW_TEXT, null, false);
+  const textNodes = [];
+  while(walker.nextNode()) textNodes.push(walker.currentNode);
+  
+  textNodes.forEach(node => {
+    if (node.nodeValue && node.nodeValue.includes('&')) {
+      // Only fix entities inside math delimiters
+      node.nodeValue = node.nodeValue
+        .replace(/&amp;/g, '&')
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>');
+    }
+  });
+});
+</script>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    tags: 'ams'
+  },
+  options: {
+    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+};
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+</head>
+<body>
+<div class='content'>
+    <div class='nav'>
+    <ul class='wrap'>
+        <li><a href='/'>Home</a></li>
+        <li><a href='/blog/'>Blog</a></li>
+    </ul>
+</div>
+
+    <div class='front-matter'>
+        <div class='wrap'>
+            <h1>AI in 2025</h1>
+            <div class='bylines'>
+                <div class='byline'>
+                    <h3>Published</h3>
+                    <p>25 November 2025</p>
+                </div>
+            </div>
+            <div class='clear'></div>
+        </div>
+    </div>
+    <div class='wrap article'>
+        <p>Things look very different in 2025 than in 2017 when I first started.</p>
+
+<p>Scaling works. Making things cheaper works. Making things faster works. Everything else is cherry on top. What is the most important question now?</p>
+
+<p>Ask: would this have been invented if I don’t do it?</p>
+
+<p>Academia: if I show it to people in the industry, would they regard it as just an ablation for them? Is it too complex to use in a real system?</p>
+
+<p>Steam engine to the second law of thermal dynamics.</p>
+
+<p>Academia vs industry.</p>
+
+<p>Felix Hill’s passing and reflection.</p>
+
+<p>https://ai-2027.com/</p>
+
+<p>https://www.darioamodei.com/essay/machines-of-loving-grace</p>
+
+<h5 id="topics">Topics</h5>
+<ul>
+  <li>Memory</li>
+  <li>Safety/control</li>
+  <li>Environment engineering</li>
+  <li>Scientific discovery</li>
+  <li>Behavior shaping</li>
+</ul>
+
+
+    </div>
+</div>
+</body>
+</html>
