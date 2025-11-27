@@ -34,7 +34,7 @@ title: Blog
                         </a>
                     </p>
                     <p class='post-date'>
-                        {{ post.date | date_to_long_string }}
+                        {{ post.date | date: '%d %b %Y' }}
                     </p>
                 </div>
                 <span class='hidden'>{{ forloop.index }}</span>

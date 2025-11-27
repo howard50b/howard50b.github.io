@@ -191,16 +191,15 @@ body.blog-landing #intro {
   margin-bottom: 5px;
 }
 #blog .post-date {
-  text-transform: uppercase;
   color: rgba(0, 0, 0, 0.7);
   font-size: 12px;
-  font-weight: bold;
+  /* font-weight: bold; */
   margin-top: 4px;
   margin-bottom: 4px;
 }
 #blog .post-title {
   display: inline-block;
-  font-weight: bold;
+  /* font-weight: bold; */
   margin-bottom: 0;
 }
 #blog .post-title a {
