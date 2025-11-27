@@ -35,6 +35,12 @@ h3 {
 h3 + p {
   margin-top: 0.4em;
 }
+h4 {
+  margin-bottom: 0em;
+}
+h4 + p {
+  margin-top: 0.4em;
+}
 .clear {
   clear: both;
 }
@@ -216,7 +222,7 @@ ol.bibliography {
   margin-bottom: 0;
 }
 #blog .post-title a {
-  font-size: 24px;
+  font-size: 22px;
   text-decoration: none;
 }
 #blog .post-title a:hover {
