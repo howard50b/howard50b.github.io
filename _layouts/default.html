@@ -112,6 +112,43 @@ function filterOldFormat(bibList) {
     }
   });
 }
+
+// Highlight reference when citation is clicked
+function setupCitationHighlight() {
+  const article = document.querySelector('.article');
+  if (!article) return;
+  
+  const citationLinks = article.querySelectorAll('a[href^="#"]');
+  citationLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      const id = this.getAttribute('href').substring(1);
+      if (!id) return;
+      
+      // Find the bibliography item with this anchor
+      const anchor = document.querySelector('a[name="' + id + '"]');
+      if (!anchor) return;
+      
+      const listItem = anchor.closest('li');
+      if (!listItem) return;
+      
+      // Remove any existing highlights
+      document.querySelectorAll('ol.bibliography li.highlight').forEach(el => {
+        el.classList.remove('highlight');
+      });
+      
+      // Add highlight class
+      listItem.classList.add('highlight');
+      
+      // Remove highlight after 2 seconds
+      setTimeout(() => {
+        listItem.classList.remove('highlight');
+      }, 2000);
+    });
+  });
+}
+
+// Run after bibliography is built
+setTimeout(setupCitationHighlight, 100);
 </script>
 </body>
 </html>

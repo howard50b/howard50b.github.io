@@ -203,6 +203,15 @@ ol.bibliography {
   color: rgba(0, 0, 0, 0.6);
   line-height: 1.6;
 }
+ol.bibliography li {
+  transition: background-color 0.3s ease;
+  padding: 0px 3px;
+  margin: 0px 0px;
+  border-radius: 2px;
+}
+ol.bibliography li.highlight {
+  background-color: rgba(213, 225, 255, 0.926);
+}
 #blog {
   margin-top: 50px;
   margin-bottom: 100px;
