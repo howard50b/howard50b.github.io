@@ -268,6 +268,109 @@ ol.bibliography li.highlight {
 hr {
   border-top: #ccc;
 }
+/* Table of Contents */
+.article-container {
+  display: flex;
+  justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.article-container .wrap.article {
+  flex: 0 1 780px;
+  min-width: 0;
+}
+
+.toc-nav {
+  position: sticky;
+  top: 30px;
+  align-self: flex-start;
+  width: 200px;
+  max-height: calc(100vh - 60px);
+  overflow-y: auto;
+  margin-left: -160px;
+  margin-right: -40px;
+  padding: 16px 0;
+  flex-shrink: 0;
+}
+
+.toc-header {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: rgba(0, 0, 0, 0.8);
+  margin-bottom: 4px;
+  padding-left: 0;
+}
+
+.toc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.toc-item {
+  margin: 0;
+  padding: 0;
+}
+
+.toc-item a {
+  display: block;
+  padding: 6px 6px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: rgba(0, 0, 0, 0.5);
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  transition: all 0.15s ease;
+}
+
+.toc-item a:hover {
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.toc-item a.active {
+  color: rgba(0, 0, 0, 0.9);
+  border-left-color: rgba(0, 0, 0, 0.7);
+  font-weight: 500;
+}
+
+.toc-item-h3 a {
+  padding-left: 12px;
+  font-size: 12px;
+}
+
+/* Scrollbar styling for TOC */
+.toc-nav::-webkit-scrollbar {
+  width: 4px;
+}
+
+.toc-nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.toc-nav::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 2px;
+}
+
+.toc-nav::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+@media screen and (max-width: 1100px) {
+  .toc-nav {
+    display: none;
+  }
+  
+  .article-container {
+    display: block;
+  }
+}
+
 @media screen and (max-width: 700px) {
   body {
     margin: 0 7px;

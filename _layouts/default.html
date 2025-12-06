@@ -30,8 +30,14 @@
             <div class='clear'></div>
         </div>
     </div>
-    <div class='wrap article'>
-        {{ content }}
+    <div class='article-container'>
+        <div class='wrap article'>
+            {{ content }}
+        </div>
+        <nav class='toc-nav' id='toc-nav'>
+            <div class='toc-header'>Contents</div>
+            <ul class='toc-list' id='toc-list'></ul>
+        </nav>
     </div>
 </div>
 <script>
@@ -149,6 +155,96 @@ function setupCitationHighlight() {
 
 // Run after bibliography is built
 setTimeout(setupCitationHighlight, 100);
+
+// Table of Contents generation and scroll tracking
+function buildTableOfContents() {
+  const article = document.querySelector('.article');
+  const tocList = document.getElementById('toc-list');
+  const tocNav = document.getElementById('toc-nav');
+  
+  if (!article || !tocList || !tocNav) return;
+  
+  // Get all h2 and h3 headings in the article
+  const headings = article.querySelectorAll('h2, h3');
+  
+  if (headings.length < 3) {
+    // Hide TOC if fewer than 3 headings
+    tocNav.style.display = 'none';
+    return;
+  }
+  
+  const tocItems = [];
+  
+  headings.forEach((heading, index) => {
+    // Create an ID if the heading doesn't have one
+    if (!heading.id) {
+      heading.id = 'heading-' + index;
+    }
+    
+    const li = document.createElement('li');
+    li.className = 'toc-item' + (heading.tagName === 'H3' ? ' toc-item-h3' : '');
+    
+    const a = document.createElement('a');
+    a.href = '#' + heading.id;
+    a.textContent = heading.textContent;
+    a.setAttribute('data-heading-id', heading.id);
+    
+    // Smooth scroll on click
+    a.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.getElementById(heading.id);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        history.pushState(null, null, '#' + heading.id);
+      }
+    });
+    
+    li.appendChild(a);
+    tocList.appendChild(li);
+    tocItems.push({ id: heading.id, element: heading, link: a });
+  });
+  
+  // Scroll spy: highlight active section
+  function updateActiveSection() {
+    const scrollPos = window.scrollY + 100; // Offset for header
+    
+    let activeItem = null;
+    
+    for (let i = tocItems.length - 1; i >= 0; i--) {
+      const item = tocItems[i];
+      if (item.element.offsetTop <= scrollPos) {
+        activeItem = item;
+        break;
+      }
+    }
+    
+    // Update active states
+    tocItems.forEach(item => {
+      item.link.classList.remove('active');
+    });
+    
+    if (activeItem) {
+      activeItem.link.classList.add('active');
+    }
+  }
+  
+  // Throttled scroll handler
+  let ticking = false;
+  window.addEventListener('scroll', function() {
+    if (!ticking) {
+      window.requestAnimationFrame(function() {
+        updateActiveSection();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+  
+  // Initial update
+  updateActiveSection();
+}
+
+document.addEventListener('DOMContentLoaded', buildTableOfContents);
 </script>
 </body>
 </html>
