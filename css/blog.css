@@ -212,6 +212,15 @@ ol.bibliography li {
 ol.bibliography li.highlight {
   background-color: rgba(213, 225, 255, 0.926);
 }
+ol.bibliography .back-link {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.3);
+  font-size: 11px;
+  margin-left: 4px;
+}
+ol.bibliography .back-link:hover {
+  color: rgba(0, 0, 0, 0.6);
+}
 #blog {
   margin-top: 50px;
   margin-bottom: 100px;

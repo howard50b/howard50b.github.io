@@ -56,14 +56,23 @@ document.addEventListener('DOMContentLoaded', function() {
   const article = document.querySelector('.article');
   const citationLinks = article.querySelectorAll('a[href^="#"]');
   
-  // Collect cited reference IDs in order of appearance
+  // Collect cited reference IDs in order of appearance and track first occurrence
   const citedIdsOrdered = [];
   const citedIdsSet = new Set();
-  citationLinks.forEach(link => {
+  const firstCitationId = new Map(); // Maps ref id -> first citation element id
+  
+  citationLinks.forEach((link, index) => {
     const id = link.getAttribute('href').substring(1);
-    if (id && !citedIdsSet.has(id)) {
+    if (!id) return;
+    
+    // Add unique id to citation link for back-linking
+    const citationId = 'cite-' + id + '-' + index;
+    link.id = citationId;
+    
+    if (!citedIdsSet.has(id)) {
       citedIdsSet.add(id);
       citedIdsOrdered.push(id);
+      firstCitationId.set(id, citationId);
     }
   });
 
@@ -87,7 +96,9 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!refMap.has(id)) return;
     
     const li = document.createElement('li');
-    li.innerHTML = '<a name="' + id + '"></a>' + refMap.get(id);
+    const backLinkId = firstCitationId.get(id);
+    const backLink = backLinkId ? ' <a href="#' + backLinkId + '" class="back-link" title="Back to text">↩</a>' : '';
+    li.innerHTML = '<a name="' + id + '"></a>' + refMap.get(id) + backLink;
     newList.appendChild(li);
   });
 
