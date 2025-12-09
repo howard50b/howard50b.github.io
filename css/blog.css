@@ -47,6 +47,9 @@ h4 {
 h4 + p {
   margin-top: 0.4em;
 }
+p + ul {
+  margin-top: -0.2em;
+}
 .clear {
   clear: both;
 }
@@ -136,8 +139,12 @@ body.blog-landing #intro {
   font-size: 15px;
   line-height: 1.6em;
   color: rgba(0, 0, 0, 0.8);
-  margin-top: 50px;
-  margin-bottom: 50px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.article p {
+  margin-top: 0.6em;
+  margin-bottom: 0.4em;
 }
 .article blockquote {
   margin: 0;
