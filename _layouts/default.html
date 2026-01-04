@@ -164,8 +164,182 @@ function setupCitationHighlight() {
   });
 }
 
+// Citation hover tooltip
+function setupCitationTooltip() {
+  const article = document.querySelector('.article');
+  if (!article) return;
+  
+  // Create tooltip element
+  const tooltip = document.createElement('div');
+  tooltip.className = 'citation-tooltip';
+  document.body.appendChild(tooltip);
+  
+  // Build a map of reference IDs to their content
+  const refContentMap = new Map();
+  
+  function buildRefMap() {
+    const bibList = document.querySelector('ol.bibliography');
+    if (!bibList) return;
+    
+    const items = bibList.querySelectorAll('li');
+    items.forEach(item => {
+      const anchor = item.querySelector('a[name]');
+      if (!anchor) return;
+      
+      const id = anchor.getAttribute('name');
+      // Clone the item content, remove the back-link for tooltip display
+      const content = item.cloneNode(true);
+      const backLink = content.querySelector('.back-link');
+      if (backLink) backLink.remove();
+      const anchorInContent = content.querySelector('a[name]');
+      if (anchorInContent) anchorInContent.remove();
+      
+      refContentMap.set(id, content.innerHTML.trim());
+    });
+  }
+  
+  // Wait for bibliography to be built, then build ref map
+  setTimeout(buildRefMap, 150);
+  
+  // Find all citation links (links that point to bibliography items)
+  const citationLinks = article.querySelectorAll('a[href^="#"]');
+  
+  let hideTimeout = null;
+  let switchTimeout = null;
+  let showTimeout = null;
+  let activeLink = null;
+  let isInsideTooltip = false;
+  
+  function scheduleHide() {
+    if (hideTimeout) clearTimeout(hideTimeout);
+    hideTimeout = setTimeout(() => {
+      if (!isInsideTooltip) {
+        tooltip.classList.remove('visible');
+        activeLink = null;
+      }
+    }, 150);
+  }
+  
+  function cancelHide() {
+    if (hideTimeout) {
+      clearTimeout(hideTimeout);
+      hideTimeout = null;
+    }
+  }
+  
+  function cancelSwitch() {
+    if (switchTimeout) {
+      clearTimeout(switchTimeout);
+      switchTimeout = null;
+    }
+  }
+  
+  function cancelShow() {
+    if (showTimeout) {
+      clearTimeout(showTimeout);
+      showTimeout = null;
+    }
+  }
+  
+  function showTooltipForLink(link, id) {
+    const content = refContentMap.get(id);
+    if (!content) return;
+    
+    activeLink = link;
+    tooltip.innerHTML = content;
+    
+    // Position the tooltip near the link
+    const rect = link.getBoundingClientRect();
+    const tooltipWidth = 400;
+    const tooltipHeight = tooltip.offsetHeight || 100;
+    
+    // Calculate position - prefer below and to the right
+    let left = rect.left;
+    let top = rect.bottom + 8;
+    
+    // Adjust if tooltip would go off screen
+    if (left + tooltipWidth > window.innerWidth - 20) {
+      left = window.innerWidth - tooltipWidth - 20;
+    }
+    if (left < 20) {
+      left = 20;
+    }
+    
+    // If tooltip would go below viewport, show it above the link
+    if (top + tooltipHeight > window.innerHeight - 20) {
+      top = rect.top - tooltipHeight - 8;
+    }
+    
+    tooltip.style.left = left + 'px';
+    tooltip.style.top = top + 'px';
+    tooltip.style.maxWidth = Math.min(tooltipWidth, window.innerWidth - 40) + 'px';
+    
+    tooltip.classList.add('visible');
+  }
+  
+  // Keep tooltip visible when hovering over it
+  tooltip.addEventListener('mouseenter', function() {
+    isInsideTooltip = true;
+    cancelHide();
+    cancelSwitch();
+  });
+  
+  tooltip.addEventListener('mouseleave', function() {
+    isInsideTooltip = false;
+    scheduleHide();
+  });
+  
+  citationLinks.forEach(link => {
+    const id = link.getAttribute('href').substring(1);
+    if (!id) return;
+    
+    // Add citation-link class for styling
+    link.classList.add('citation-link');
+    
+    link.addEventListener('mouseenter', function(e) {
+      cancelHide();
+      cancelShow();
+      
+      // If tooltip is visible and mouse is inside it, don't switch
+      if (isInsideTooltip) return;
+      
+      // If this is the same link that's already active, do nothing
+      if (activeLink === link) return;
+      
+      // If there's an active tooltip from another link, delay the switch
+      // This gives the user time to move into the existing tooltip
+      if (activeLink && tooltip.classList.contains('visible')) {
+        cancelSwitch();
+        switchTimeout = setTimeout(() => {
+          switchTimeout = null; // Clear after firing
+          if (!isInsideTooltip) {
+            showTooltipForLink(link, id);
+          }
+        }, 100);
+      } else {
+        // No active tooltip - delay before showing to avoid triggering during scroll
+        showTimeout = setTimeout(() => {
+          showTimeout = null;
+          if (!isInsideTooltip) {
+            showTooltipForLink(link, id);
+          }
+        }, 150);
+      }
+    });
+    
+    link.addEventListener('mouseleave', function() {
+      // Cancel any pending show (user moved away quickly, likely scrolling)
+      cancelShow();
+      // Always schedule hide when leaving a link
+      // The timeout delay allows moving to the tooltip before it hides
+      scheduleHide();
+    });
+  });
+}
+
 // Run after bibliography is built
 setTimeout(setupCitationHighlight, 100);
+setTimeout(setupCitationTooltip, 200);
 
 // Table of Contents generation and scroll tracking
 function buildTableOfContents() {
