@@ -10,7 +10,7 @@ layout: home
 
 I recently received my PhD in CS from [Princeton](https://pli.princeton.edu/), where I was co-advised by [Danqi Chen](https://www.cs.princeton.edu/~danqic/) and [Karthik Narasimhan](https://www.cs.princeton.edu/~karthikn/).
 
-**My research focuses on building agents that can reliably and safely operate on a long interactive horizon and can continually improve.**
+**My research focuses on building safe agents that can operate reliably on a long interactive horizon and can continually improve.**
 
 Towards this goal, my research covers several topics:
 <div class="callout" markdown="1">
