@@ -14,9 +14,9 @@ I recently received my PhD in CS from [Princeton](https://pli.princeton.edu/), w
 
 Towards this goal, my research covers several topics:
 <div class="callout" markdown="1">
-- Building large-scale virtual and embodied environments to train and evaluate agents ([WebShop](https://arxiv.org/abs/2207.01206), [Touchdown](https://arxiv.org/abs/1811.12354)).
-- Building long-term memory and developing algorithms for continual learning ([MemWalker](https://arxiv.org/abs/2310.05029), [Continual Memorization](https://arxiv.org/abs/2411.07175)).
-- Understanding the properties of post-training algorithms ([RL Forgets Less than SFT](https://arxiv.org/abs/2510.18874)).
+- Building _large-scale virtual and embodied environments_ to train and evaluate agents ([WebShop](https://arxiv.org/abs/2207.01206), [Touchdown](https://arxiv.org/abs/1811.12354)).
+- Building _long-term memory_ and developing algorithms for _continual learning_ ([MemWalker](https://arxiv.org/abs/2310.05029), [Continual Memorization](https://arxiv.org/abs/2411.07175)).
+- Understanding properties of post-training algorithms ([RL Forgets Less than SFT](https://arxiv.org/abs/2510.18874)).
 - Interpretability & safety ([Interpretability Improves Robustness](https://arxiv.org/abs/2204.11790), [Belief Shift under Growing Context](https://arxiv.org/abs/2511.01805)).
 - AI for advancing science ([AI Reverse-Engineering Blackboxes](https://arxiv.org/abs/2505.17968), [AI Science Tutor](https://arxiv.org/abs/2402.11111)), and benchmarking multi-modal reasoning on scientific knowledge/charts ([CharXiv](https://arxiv.org/abs/2406.18521)).
 </div>
@@ -35,7 +35,7 @@ I also spent quite some time thinking about interpretability and safety from the
 During my PhD, I have interned at Meta (FAIR) working with [Asli Celikyilmaz](http://asli.us/) and [Jason Weston](https://www.thespermwhale.com/jaseweston/).
 Prior to Princeton, I was an ML researcher at [ASAPP](https://www.asapp.com/) working with [Tao Lei](https://taolei87.github.io/). I was also a research assistant at Cornell Tech working with [Yoav Artzi](https://yoavartzi.com/).
 
-I recieved my M.Eng. in CS from Cornell and B.S. in EE from National Taiwan University.
+I obtained my M.Eng. in CS from Cornell and B.S. in Electrical Engineering from National Taiwan University.
 
 </div>
 <div class="home-photo" style="width: 32%; flex-shrink: 0;">
