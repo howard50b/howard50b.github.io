@@ -16,7 +16,7 @@ Towards this goal, my research covers several topics:
 <div class="callout" markdown="1">
 - Building large-scale _virtual and embodied environments_ to train and evaluate agents ([WebShop](https://arxiv.org/abs/2207.01206), [Touchdown](https://arxiv.org/abs/1811.12354)).
 - Building _long-term memory_ and developing algorithms for _continual learning_ ([MemWalker](https://arxiv.org/abs/2310.05029), [Continual Memorization](https://arxiv.org/abs/2411.07175)).
-- Understanding properties of post-training algorithms ([RL Forgets Less than SFT](https://arxiv.org/abs/2510.18874)).
+- Understanding properties of post-training algorithms; RL on LMs forgets less than SFT ([Retaining by Doing](https://arxiv.org/abs/2510.18874)).
 - Interpretability & safety ([Interpretability Improves Robustness](https://arxiv.org/abs/2204.11790), [Belief Shift under Growing Context](https://arxiv.org/abs/2511.01805)).
 - AI for advancing science ([AI Reverse-Engineering Blackboxes](https://arxiv.org/abs/2505.17968), [AI Science Tutor](https://arxiv.org/abs/2402.11111)), and benchmarking multi-modal reasoning on scientific knowledge/charts ([CharXiv](https://arxiv.org/abs/2406.18521)).
 </div>
