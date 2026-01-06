@@ -555,7 +555,7 @@ a.citation-link {
 }
 
 .home-article .callout li {
-  margin-bottom: 1em;
+  margin-bottom: 0.65em;
 }
 
 .home-article .callout li:last-child {
