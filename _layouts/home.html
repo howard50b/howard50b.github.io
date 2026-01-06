@@ -1,0 +1,24 @@
+<html>
+<head>
+    <title>{{ page.title }}</title>
+    <meta charset='UTF-8'>
+    <meta content='width=device-width, initial-scale=1' name='viewport'/>
+
+    <meta name='description' content="Howard Chen's website.">
+    <meta name='author' content='Howard Chen'>
+
+    <link rel='shortcut icon' href='/favicon.png' />
+    <link href='/css/blog.css' rel='stylesheet'/>
+    <link href='/css/markdown.css' rel='stylesheet'/>
+
+    {% include mathjax.html %}
+</head>
+<body class="home-page">
+<div class='content'>
+    {% include nav.html %}
+    <div class='wrap article home-article'>
+        {{ content }}
+    </div>
+</div>
+</body>
+</html>

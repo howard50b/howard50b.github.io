@@ -509,3 +509,67 @@ hr {
 a.citation-link {
   /* Inherits default link styling */
 }
+
+/* Home page article styling */
+.home-article {
+  margin-top: 50px;
+  margin-bottom: 100px;
+}
+
+.home-article h1 {
+  font-weight: normal;
+  margin-top: 0;
+}
+
+.home-article p {
+  margin-top: 0em;
+  margin-bottom: 0.5em;
+}
+
+.home-article ul {
+  padding: 0 15px;
+}
+
+.home-article p + ul,
+.home-article p + ol {
+  margin-top: -0.5em;
+}
+
+.home-article p + .callout {
+  margin-top: -0.5em;
+}
+
+.home-article .callout + ul {
+  margin-top: 0.5em;
+}
+
+.home-article .callout {
+  margin-bottom: 0.5em;
+  background-color: rgba(207, 222, 255, 0.3);
+  border-left: none;
+}
+
+.home-article .callout p,
+.home-article .callout ul {
+  margin: 0em 0em;
+}
+
+.home-article .callout li {
+  margin-bottom: 1em;
+}
+
+.home-article .callout li:last-child {
+  margin-bottom: 0;
+}
+
+@media screen and (max-width: 700px) {
+  .home-content {
+    flex-direction: column !important;
+  }
+  
+  .home-photo {
+    width: 60% !important;
+    order: -1;
+    margin-bottom: 1rem;
+  }
+}
