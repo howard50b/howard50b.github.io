@@ -18,7 +18,7 @@ Towards this goal, my research covers several topics:
 - Building long-term memory and developing algorithms for continual learning ([MemWalker](https://arxiv.org/abs/2310.05029), [Continual Memorization](https://arxiv.org/abs/2411.07175)).
 - Understanding the properties of post-training algorithms ([RL Forgets Less than SFT](https://arxiv.org/abs/2510.18874)).
 - Interpretability & safety ([Interpretability Improves Robustness](https://arxiv.org/abs/2204.11790), [Belief Shift under Growing Context](https://arxiv.org/abs/2511.01805)).
-- AI for advancing science ([AI Reverse-Engineering Blackboxes](https://arxiv.org/abs/2505.17968), [AI Science Tutor](https://arxiv.org/abs/2402.11111)), and multi-modal reasoning on scientific knowledge ([CharXiv](https://arxiv.org/abs/2406.18521)).
+- AI for advancing science ([AI Reverse-Engineering Blackboxes](https://arxiv.org/abs/2505.17968), [AI Science Tutor](https://arxiv.org/abs/2402.11111)), and benchmarking multi-modal reasoning on scientific knowledge/charts ([CharXiv](https://arxiv.org/abs/2406.18521)).
 </div>
 
 <!--
