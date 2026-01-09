@@ -15,7 +15,7 @@ I recently received my PhD in CS from [Princeton](https://pli.princeton.edu/), w
 Towards this goal, my research covers several topics:
 <div class="callout" markdown="1">
 - Building large-scale _virtual and embodied environments_ to train and evaluate agents ([WebShop](https://arxiv.org/abs/2207.01206), [Touchdown](https://arxiv.org/abs/1811.12354)).
-- Building _long-term memory_ and developing algorithms for _continual learning_ ([MemWalker](https://arxiv.org/abs/2310.05029), [Continual Memorization](https://arxiv.org/abs/2411.07175)).
+- Building _agentic long-term memory_ and developing algorithms for _continual learning_ ([MemWalker](https://arxiv.org/abs/2310.05029), [Continual Memorization](https://arxiv.org/abs/2411.07175)).
 - Understanding properties of post-training algorithms: RL on LMs forgets less than SFT ([Retaining by Doing](https://arxiv.org/abs/2510.18874)).
 - Interpretability & safety: interpretability improves robustness ([Rationalization Removes Adv. Attacks](https://arxiv.org/abs/2204.11790)); agent performing deep research changes it's stance on political, moral, and safety questions ([Context Accumulation Changes Belief](https://arxiv.org/abs/2511.01805)).
 - AI for advancing science ([AI Reverse-Engineering Blackboxes](https://arxiv.org/abs/2505.17968), [AI Science Tutor](https://arxiv.org/abs/2402.11111)), and benchmarking multi-modal reasoning on scientific knowledge/charts ([CharXiv](https://arxiv.org/abs/2406.18521)).
