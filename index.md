@@ -42,7 +42,7 @@ I obtained my M.Eng. in CS from Cornell and B.S. in Electrical Engineering from 
 <img src="/assets/howardchen.png" style="width: 100%;">
 <p style="font-family: courier; font-size: 15px; margin: 0rem 0;">howardbchen@gmail.com</p>
 <div style="font-size: 14px; margin-top: 0rem;">
-<a href="https://scholar.google.com/citations?user=wsNa_W4AAAAJ&hl=en&authuser=3">Google Scholar</a> &nbsp;|&nbsp; 
+<a href="https://scholar.google.com/citations?user=wsNa_W4AAAAJ&hl=en&authuser=2">Google Scholar</a> &nbsp;|&nbsp; 
 <a href="https://github.com/howard50b">GitHub</a> &nbsp;|&nbsp;
 <a href="https://x.com/__howardchen">Twitter</a>
 </div>
