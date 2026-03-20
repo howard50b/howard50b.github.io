@@ -8,10 +8,11 @@ layout: home
 <div class="home-content" style="display: flex; gap: 2.5rem; align-items: flex-start;">
 <div class="home-bio" style="flex: 1;" markdown="1">
 
-I recently received my PhD in CS from [Princeton](https://pli.princeton.edu/), where I was co-advised by [Danqi Chen](https://www.cs.princeton.edu/~danqic/) and [Karthik Narasimhan](https://www.cs.princeton.edu/~karthikn/).
 
+<strong><i>My research focuses on building agents that can internalize their own experiences and evolve over time.</i></strong>
+
+<!--
 **My research focuses on building safe agents that can operate reliably on a long interactive horizon and can continually improve.**
-
 Towards this goal, my research covers several topics:
 <div class="callout" markdown="1">
 - Building large-scale _virtual and embodied environments_ to train and evaluate agents ([WebShop](https://arxiv.org/abs/2207.01206), [Touchdown](https://arxiv.org/abs/1811.12354)).
@@ -20,8 +21,9 @@ Towards this goal, my research covers several topics:
 - Interpretability & safety: interpretability improves robustness ([Rationalization Removes Adv. Attacks](https://arxiv.org/abs/2204.11790)); agent performing deep research changes it's stance on political, moral, and safety questions ([Context Accumulation Changes Belief](https://arxiv.org/abs/2511.01805)).
 - AI for advancing science ([AI Reverse-Engineering Blackboxes](https://arxiv.org/abs/2505.17968), [AI Science Tutor](https://arxiv.org/abs/2402.11111)), and benchmarking multi-modal reasoning on scientific knowledge/charts ([CharXiv](https://arxiv.org/abs/2406.18521)).
 </div>
+-->
 
-<!--
+<!-- Old
 **My research has been focusing on building AI systems that can handle long-horizon and continual tasks.**
 More broadly, I aim to build lifelong agents that can operate reliably over long time horizons and self-improve.
 I approach it through the lens of *memory* in both its in-context and parametric forms: 
@@ -32,7 +34,8 @@ and understading how model parameters can be updated without drastic forgetting 
 I also spent quite some time thinking about interpretability and safety from the memory perspective.
 -->
 
-During my PhD, I have interned at Meta (FAIR) working with [Asli Celikyilmaz](http://asli.us/) and [Jason Weston](https://www.thespermwhale.com/jaseweston/).
+I obtained my PhD in CS from [Princeton](https://pli.princeton.edu/), where I was co-advised by [Danqi Chen](https://www.cs.princeton.edu/~danqic/) and [Karthik Narasimhan](https://www.cs.princeton.edu/~karthikn/).
+During my PhD, I have interned at Meta AI (FAIR) working with [Asli Celikyilmaz](http://asli.us/) and [Jason Weston](https://www.thespermwhale.com/jaseweston/).
 Prior to Princeton, I was an ML researcher at [ASAPP](https://www.asapp.com/) working with [Tao Lei](https://taolei87.github.io/). I was also a research assistant at Cornell Tech working with [Yoav Artzi](https://yoavartzi.com/).
 
 I obtained my M.Eng. in CS from Cornell and B.S. in Electrical Engineering from National Taiwan University.
