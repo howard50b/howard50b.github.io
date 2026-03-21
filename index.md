@@ -34,7 +34,7 @@ and understading how model parameters can be updated without drastic forgetting 
 I also spent quite some time thinking about interpretability and safety from the memory perspective.
 -->
 
-I obtained my PhD in CS from [Princeton](https://pli.princeton.edu/), where I worked on language models and machine learning, and was co-advised by [Danqi Chen](https://www.cs.princeton.edu/~danqic/) and [Karthik Narasimhan](https://www.cs.princeton.edu/~karthikn/).
+I obtained my PhD in CS from [Princeton](https://pli.princeton.edu/) co-advised by [Danqi Chen](https://www.cs.princeton.edu/~danqic/) and [Karthik Narasimhan](https://www.cs.princeton.edu/~karthikn/), where my research focused on language models and machine learning.
 During my PhD, I have interned at Meta AI (FAIR) working with [Asli Celikyilmaz](http://asli.us/) and [Jason Weston](https://www.thespermwhale.com/jaseweston/).
 Prior to Princeton, I was an ML researcher at [ASAPP](https://www.asapp.com/) working with [Tao Lei](https://taolei87.github.io/). I was also a research assistant at Cornell Tech working with [Yoav Artzi](https://yoavartzi.com/).
 
