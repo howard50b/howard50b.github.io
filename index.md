@@ -9,7 +9,8 @@ layout: home
 <div class="home-bio" style="flex: 1;" markdown="1">
 
 
-<strong><i>My research focuses on building agents that can continually internalize their experiences and evolve over time.</i></strong>
+
+<strong><i>My research focuses on building agents that can evolve over time through continual and deep internalization of their experiences.</i></strong>
 
 <!--
 **My research focuses on building safe agents that can operate reliably on a long interactive horizon and can continually improve.**
